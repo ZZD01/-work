@@ -16,4 +16,13 @@ module.exports = {
       axios: "axios",
     },
   },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'https://api.chatanywhere.tech',
+        changeOrigin: true,
+        pathRewrite: { '^/api': '' }
+      }
+    }
+  }
 };

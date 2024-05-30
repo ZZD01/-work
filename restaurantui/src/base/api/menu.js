@@ -39,3 +39,8 @@ export const insertMenu = (menu) => {
 export const insertMenuType = (menuType) => {
   return http.requestPost(apiUrl + "/menu/type", menuType);
 };
+
+export const TalktoGPT = (message) => {
+  return http.requestPost(apiUrl + "/api/TalkToGPT", message);
+};
+

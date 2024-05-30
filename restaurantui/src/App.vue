@@ -44,6 +44,8 @@
 
 .content .v-main {
   padding: 0 !important;
+  margin-left: -400px;
+  /* margin-top: -250px; */
 }
 #nav {
   padding: 30px;

@@ -12,8 +12,8 @@
       single-expand
       @item-expanded="o => o.value == true?listOrderDetailsByOrderId(o.item.id):''"
     >
-      <template v-slot:item.createTime="{ item }">{{item.createTime.replace('T',' ').substr(0,19)}}</template>
-      <template v-slot:item.status="{ item }">
+      <template v-slot:[`item.createTime`]="{ item }">{{item.createTime.replace('T',' ').substr(0,19)}}</template>
+      <template v-slot:[`item.status`]="{ item }">
         <v-chip v-if="item.status == 0" color="error" @click="openPayPage(item.id)">未支付</v-chip>
         <v-chip v-else-if="item.status == 1" color="success">已支付</v-chip>
       </template>

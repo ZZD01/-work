@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user")
 @Api(tags = "用户管理")
-public class UserControllerImpl implements UserController {
+public class UserControllerImpl extends OrderDetailControllerImpl implements UserController {
   @Autowired private UserService userService;
 
   @Override

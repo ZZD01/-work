@@ -68,4 +68,5 @@ public class MenuControllerImpl implements MenuController {
   public ResponseResult listAllMenus() {
     return menuService.listAllMenus();
   }
+
 }

@@ -8,9 +8,9 @@
       :loading="table.loading"
       hide-default-footer
     >
-      <template v-slot:item.type="{ item }">{{menuType[item.type]}}</template>
-      <template v-slot:item.sum="{ item }">{{Number(item.num) * Number(item.price)}}</template>
-      <template v-slot:item.actions="{ item }">
+      <template v-slot:[`item.type`]="{ item }">{{menuType[item.type]}}</template>
+      <template v-slot:[`item.sum`]="{ item }">{{Number(item.num) * Number(item.price)}}</template>
+      <template v-slot:[`item.actions`]="{ item }"> 
         <v-btn
           fab
           x-small
@@ -24,16 +24,15 @@
           <v-icon dark>mdi-plus</v-icon>
         </v-btn>
       </template>
-      <template v-slot:body.append>
+      <template v-slot:[`body.append`]>
         <tr>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
-          <td></td>
-          <td>{{countSum}}</td>
+          <td>菜品个数：{{countSum}}</td>
           <td>
-            <v-btn small color="#B2DFDB" :disabled="countSum == 0" @click="generateOrder">结算订单</v-btn>
+            <v-btn small color="#B2DFDB" :disabled="countSum == 0" @click="generateOrder" >结算订单</v-btn>
           </td>
         </tr>
       </template>
@@ -44,16 +43,34 @@
         <v-card-text>{{payDialog.payUrl}}</v-card-text>
       </v-card>
     </v-dialog>
+    <div>
+      <!-- 其他内容 -->
+      <aidialog style="margin-top:100px">sss</aidialog>
+    </div>
+    
+    <!-- <v-right>
+      <div style="margin-left: 100%;height:800px">\sasas
+        <my-dialog v-model="showDialog"></my-dialog>
+      </div>
+    </v-right> -->
   </v-main>
+  
+
 </template>
+
 <script>
 import * as menuApi from "@/base/api/menu.js";
 import querystring from "querystring";
 import { systemConfig }  from '@/base/config/system'
+import aidialog from '@/components/AIdialog.vue'
 var apiUrl = systemConfig.apiUrl
 export default {
+  components: {
+    aidialog
+  },
   data() {
     return {
+      
       payDialog: {
         show: false,
         payUrl: ""
@@ -72,13 +89,15 @@ export default {
         ],
         desserts: [],
         perPage: 999,
-        loading: true
+        loading: true,
+        
       },
       menuType: []
     };
   },
   mounted() {
     this.getMenuType();
+
   },
   computed: {
     countSum() {
@@ -173,9 +192,11 @@ export default {
         .then(result => {
           if (result.success) {
             var list = result.data.list;
+            console.log(result.data.list)
             for (const key in list) {
               this.menuType[list[key].id] = list[key].name;
             }
+            console.log(this.menuType)
             this.getMenu();
           } else {
             this.$snackbar.error(result.message);
